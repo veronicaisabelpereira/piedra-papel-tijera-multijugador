@@ -1,0 +1,54 @@
+PAGES
+/////
+welcome-page
+Componente personalizado llamado "welcome-page" utilizando el método customElements.define(). 
+Este componente personalizado extiende la clase HTMLElement y tiene una propiedad shadow que hace referencia a la raíz de sombra (shadow root) del componente.
+Dentro del constructor del componente personalizado, se llama al método attachShadow() para crear un nuevo shadow root en modo "open" y se asigna a la propiedad shadow. 
+Luego, se llama a los métodos render() y connectedCallback().
+El método render() establece el contenido HTML interno del shadow root utilizando la propiedad innerHTML. 
+En este caso, se crea un encabezado <h1> y dos botones <button>.
+El método connectedCallback() se ejecuta cuando el componente es conectado al DOM. 
+Dentro de este método, se obtienen las referencias a los botones utilizando el método querySelector() en el shadow root. 
+Luego, se agregan escuchadores de eventos a los botones. 
+Cuando se hace clic en el botón "Nuevo juego", se utiliza el método Router.go() para navegar a la ruta "/sign-in". 
+Cuando se hace clic en el botón "Ingresar a sala", 
+se utiliza el método Router.go() para navegar a la ruta "/enter-room".
+Define un componente personalizado "welcome-page" que muestra un encabezado y dos botones. 
+Los botones tienen escuchadores de eventos que utilizan el Router de Vaadin para navegar a diferentes rutas en la aplicación.
+/////
+signin-page
+Componente personalizado llamado "signin-page" utilizando una clase que extiende HTMLElement. 
+Dentro del método connectedCallback, 
+se renderiza un contenido HTML y se agregan event listeners a un formulario 
+según ciertas condiciones. 
+Si se cumple una condición, 
+se agrega un event listener de submit que realiza algunas acciones 
+utilizando el objeto state. 
+Si no se cumple la condición, se agrega un event listener de submit diferente 
+que realiza acciones diferentes utilizando el objeto state.
+La condicion es: 
+Si cs.rtdbRoomId es verdadero, el bloque de código dentro del if se ejecuta. 
+Después de enviar el formulario, se establece el valor del nombre (nameValue),
+se establece el estado como en línea (state.setOnline(true)), se borra el valor de movimiento (state.setMove("")), 
+se realiza una operación de inicio de sesión (state.signIn), se establecen los datos en RTDB (state.setRTDBdata) y se escucha la sala (state.listenToRoom).
+Si cs.rtdbRoomId es falso, el bloque de código dentro del else se ejecuta. 
+Después de enviar el formulario, se establece el valor del nombre (nameValue), 
+se establece el estado como en línea (state.setOnline(true)), se realiza una operación de inicio de sesión (state.signIn), 
+se pregunta por una nueva sala (state.askNewRoom), se establecen los datos en RTDB (state.setRTDBdata) 
+0y se escucha la sala (state.listenToRoom).
+El método render establece el innerHTML del elemento personalizado 
+con un contenido HTML específico.
+/////
+code-room
+Define un elemento personalizado llamado "code-room". 
+Declara dos atributos (roomId y opponentName) en la clase para almacenar información sobre el ID de la sala y el nombre del oponente. 
+El método connectedCallback() se llama cuando el elemento se conecta al árbol DOM. 
+Se suscribe a cambios en el estado, configura la información de la sala y del oponente, 
+y luego llama al método render() para actualizar la interfaz de usuario. 
+El método render() actualiza el contenido HTML del elemento según el estado actual.
+/////
+enter-room
+Define un elemento HTML personalizado llamado "enter-room". 
+Cuando este elemento se conecta al DOM, renderiza un formulario con un campo de entrada y un botón de envío. 
+Cuando se envía el formulario, evita el comportamiento de envío predeterminado, obtiene el valor del campo de entrada y lo establece como ID de la sala en el objeto "state". Luego intenta obtener la sala existente utilizando el ID de la sala. Si tiene éxito, navega a la ruta "/sign-in" utilizando el enrutador de Vaadin. 
+Si no tiene éxito, muestra un mensaje de error y resalta el campo de entrada.

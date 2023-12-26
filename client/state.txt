@@ -1,0 +1,54 @@
+
+STATE
+Gestiona el estado de LA aplicación web: juego de "piedra, papel o tijera" 
+Juego multijugador basado en una arquitectura de base de datos en tiempo real proporcionada por Firebase. 
+Resumen de las funciones y comportamientos clave:
+
+1. **Configuración de la URL base de la API:**
+   - La variable `API_BASE_URL` se establece según el entorno de desarrollo (`development`) o producción (`production`), y la variable de entorno `BACKEND_URL` en caso de producción.
+
+2. **Definición de tipos y estado inicial:**
+   - Se define el tipo `Move` que representa los posibles movimientos en el juego.
+   - El objeto `state` inicializa su estado con propiedades relacionadas con la información del usuario, el estado del juego y la interacción con la base de datos en tiempo real.
+
+3. **Métodos para modificar el estado:**
+   - Hay métodos para cambiar el estado de la aplicación, como establecer el nombre completo, la sala, el oponente, el estado en línea, el inicio del juego, etc.
+   - Métodos para realizar acciones asincrónicas, como iniciar sesión, solicitar una nueva sala, obtener detalles de una sala existente, y enviar y recibir datos en la base de datos en tiempo real.
+
+4. **Escucha de cambios en la base de datos en tiempo real:**
+   - Se utilizan funciones de Firebase (`onValue`) para suscribirse a cambios en los datos de la base de datos en tiempo real.
+   - Se actualiza el estado de la aplicación en función de los cambios en la base de datos.
+
+5. **Lógica del juego y resultados:**
+   - Se implementa la lógica del juego de "piedra, papel o tijera" para determinar el ganador en función de los movimientos del jugador y del oponente.
+   - Se registran los resultados en la base de datos.
+
+6. **Gestión de historial y estadísticas:**
+   - Métodos para obtener el historial de juegos y calcular estadísticas, como el número de victorias del jugador y del oponente.
+
+7. **Navegación de la aplicación:**
+   - Se utiliza el enrutador (`Router`) para cambiar dinámicamente entre diferentes páginas de la aplicación en función del estado y de las interacciones del usuario.
+
+8. **Función de escucha de jugadores:**
+   - Una función específica (`listenToPlayersStatus`) que redirige a diferentes páginas según el estado de los jugadores y la progresión del juego.
+
+En resumen, este código maneja la lógica del juego, la gestión del estado de la aplicación, las interacciones con la base de datos en tiempo real y la navegación entre diferentes páginas de la aplicación. Además, utiliza Firebase para proporcionar una experiencia de juego en tiempo real y persistencia de datos.
+-----
+METODOS
+El método init inicializa el estado de la aplicación y recupera los datos guardados en el almacenamiento local.
+El método getState devuelve el estado actual de la aplicación.
+El método setState actualiza el estado de la aplicación y notifica a los suscriptores sobre el cambio.
+El método subscribe permite suscribirse a cambios en el estado de la aplicación.
+Los métodos setFullname, setRoomId, setOpponentId, setOnline y setStart actualizan propiedades específicas del estado.
+El método signIn realiza una solicitud a la API (Post a "/auth") para autenticar al usuario y actualizar el estado con el ID del usuario.
+El método askNewRoom realiza una solicitud a la API (Post a "/rooms") para crear una nueva sala y actualizar el estado con el ID de la sala y el ID completo de la sala en tiempo real.
+El método getExistingRoom realiza una solicitud a la API (Get a "/rooms/:roomId) para obtener los datos de una sala existente y actualizar el estado con el ID completo de la sala en tiempo real.
+El método setRTDBdata envía datos al servidor utilizando una solicitud a la API (Post a "/rtdb-data")y actualiza el estado con los datos recibidos.
+El método listenToRoom se suscribe a los cambios en los datos de la sala en tiempo real y actualiza el estado con los datos recibidos. Llama al método listenToPlayersStatus.
+El método listenToResults se suscribe a los cambios en los resultados de los movimientos en tiempo real y actualiza el estado con los datos recibidos.
+El método getMoves devuelve los movimientos actuales del usuario y del oponente.
+El método setMove actualiza el movimiento del usuario en el estado.
+El método getWinner determina el ganador del juego actual y actualiza el estado con los resultados.
+El método pushWinner envía los resultados del juego al servidor utilizando una solicitud a la API. (Post a "/history)
+Los métodos getMyWins y getOpponentWins devuelven la cantidad de victorias del usuario y del oponente respectivamente.
+El método listenToPlayersStatus verifica el estado de los jugadores en la sala y redirige a las páginas correspondientes según el estado.
