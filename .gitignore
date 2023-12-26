@@ -2,4 +2,3 @@ node_modules
 dist
 .parcel-cache
 endpoints.txt
-key.json
